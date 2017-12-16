@@ -1,0 +1,38 @@
+centos 7
+安装依赖环境
+yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel unixODBC-devel
+下载 wget http://erlang.org/download/otp_src_20.2.tar.gz
+解压 tar -xvzf otp_src_20.2.tar.gz
+cd  otp_src_20.2
+配置
+./configure --prefix=/usr/local/erlang --with-ssl -enable-threads -enable-smmp-support -enable-kernel-poll --enable-hipe --without-javac
+make
+make install
+配置/etc/profile
+ERLANG_HOME=/usr/local/erlang
+PATH=$PATH:$ERLANG_HOME/bin
+note:gcc g++ 4.8v
+
+ubuntu
+sudo apt-get install build-essential     
+sudo apt-get install libncurses5-dev       
+sudo apt-get install libssl-dev    
+sudo apt-get install m4     
+sudo apt-get install unixodbc unixodbc-dev    
+sudo apt-get install freeglut3-dev libwxgtk2.8-dev     
+sudo apt-get install xsltproc     
+sudo apt-get install fop     
+sudo apt-get install tk8.5  
+
+
+oracle file
+instantclient-basic-linux.x64-12.2.0.1.0 解压文件夹命名oracle/lib/
+instantclient-sdk-linux.x64-12.2.0.1.0  解压 将文件夹include 拷贝到 oracle/下
+cp oracle /usr/lib/oracle
+last path /usr/lib/oracle/lib&include
+环境变量设置
+export ORACLE_HOME=/usr/lib/oracle
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME/lib
+export NLS_LANG="SIMPLIFIED CHINESE_CHINA.ZHS16GBK"
+
+
