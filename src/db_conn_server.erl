@@ -63,7 +63,7 @@
 %% @doc Get all pools.
 %% @end
 %%------------------------------------------------------------------------------
--spec pools() -> [record()].
+%%-spec pools() -> [record()].
 pools() ->
     do_gen_call(pools).
 
@@ -79,7 +79,7 @@ set_table_schema(PoolId, TableSchemas) ->
 %% @doc Get the connection parameters in the connection pool.
 %% @end
 %%------------------------------------------------------------------------------
--spec get_conn_args(PoolId::atom()) -> record().
+%%-spec get_conn_args(PoolId::atom()) -> record().
 get_conn_args(PoolId) ->
     get_pool_info(PoolId, conn_args).
 
@@ -100,7 +100,7 @@ get_pool_info(PoolId, size) ->
 %% @doc Get the connection pool.
 %% @end
 %%------------------------------------------------------------------------------
--spec get_pool(PoolId::atom()) -> record().
+%%-spec get_pool(PoolId::atom()) -> record().
 get_pool(PoolId) ->
     case find_pool(PoolId, pools()) of
         {Pool, _OtherPools} ->
@@ -113,7 +113,7 @@ get_pool(PoolId) ->
 %% @doc Get the default connection pool.
 %% @end
 %%------------------------------------------------------------------------------
--spec get_default_pool() -> record() | undefined.
+%%-spec get_default_pool() -> record() | undefined.
 get_default_pool() ->
     do_gen_call(get_default_pool).
 
@@ -131,7 +131,7 @@ set_default_pool(PoolId) ->
 %% @doc Add a connection pool.
 %% @end
 %%------------------------------------------------------------------------------
--spec add_pool(Pool::record()) -> ok.
+%%-spec add_pool(Pool::record()) -> ok.
 add_pool(Pool) ->
     do_gen_call({add_pool, Pool}).
 
@@ -139,7 +139,7 @@ add_pool(Pool) ->
 %% @doc Remove the connection pool and return it.
 %% @end
 %%------------------------------------------------------------------------------
--spec remove_pool(PoolId::atom()) -> record().
+%%-spec remove_pool(PoolId::atom()) -> record().
 remove_pool(PoolId) ->
     do_gen_call({remove_pool, PoolId}).
 
@@ -147,7 +147,7 @@ remove_pool(PoolId) ->
 %% @doc Add connections to the connection pool.
 %% @end
 %%------------------------------------------------------------------------------
--spec add_connections(PoolId::atom(), Conns::[record()]) -> ok.
+%%-spec add_connections(PoolId::atom(), Conns::[record()]) -> ok.
 add_connections(PoolId, Conns) when is_list(Conns) ->
     do_gen_call({add_connections, PoolId, Conns}).
 
@@ -170,7 +170,7 @@ remove_connections(PoolId, Num) when is_integer(Num) ->
 %% then wait to be notified of the next available connection.
 %% @end
 %%------------------------------------------------------------------------------
--spec wait_for_connection(PoolId::atom()) -> record().
+%%-spec wait_for_connection(PoolId::atom()) -> record().
 wait_for_connection(PoolId)->
     case erlang:get(?TRANSCATION_CONNECTION) of
         undefined ->
@@ -217,7 +217,7 @@ wait_for_connection(PoolId)->
 %% Update the pool and queue in state once the head has been removed.
 %% @end
 %%------------------------------------------------------------------------------
--spec pass_connection(Connection::record()) -> ok | {error, Error::term()}.
+%%-spec pass_connection(Connection::record()) -> ok | {error, Error::term()}.
 pass_connection(Connection) ->
     do_gen_call({pass_connection, Connection}).
 
@@ -233,8 +233,8 @@ pass_connection(Connection) ->
 %% as the replacement for the old one.
 %% @end
 %%------------------------------------------------------------------------------
--spec replace_connection_as_available(OldConn::record(), NewConn::record()) ->
-    ok | {error, Error::term()}.
+%%-spec replace_connection_as_available(OldConn::record(), NewConn::record()) ->
+%%    ok | {error, Error::term()}.
 replace_connection_as_available(OldConn, NewConn) ->
     do_gen_call({replace_connection_as_available, OldConn, NewConn}).
 
@@ -246,8 +246,8 @@ replace_connection_as_available(OldConn, NewConn) ->
 %% without having to lock another connection.
 %% @end
 %%------------------------------------------------------------------------------
--spec replace_connection_as_locked(OldConn::record(), NewConn::record()) ->
-    ok | {error, Error::term()}.
+%%-spec replace_connection_as_locked(OldConn::record(), NewConn::record()) ->
+ %%   ok | {error, Error::term()}.
 replace_connection_as_locked(OldConn, NewConn) ->
     do_gen_call({replace_connection_as_locked, OldConn, NewConn}).
 
