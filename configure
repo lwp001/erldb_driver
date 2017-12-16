@@ -3253,7 +3253,7 @@ fi
 ERL_BINROOT=`dirname $ERLANG`
 ERL_ROOT=`dirname $ERL_BINROOT`
 if test `uname -p` = "x86_64" ; then
-    ERL_HOME=$ERL_ROOT/lib64
+    ERL_HOME=$ERL_ROOT/lib
 elif test `uname -s` = "AIX" ; then
     ERL_HOME=/opt/freeware/lib
 else
