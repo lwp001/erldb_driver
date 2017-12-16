@@ -104,7 +104,7 @@ stop() ->
 %% it is translated into a blocking gen-server call.
 %% @end
 %%------------------------------------------------------------------------------
--spec add_pool(PoolId::atom(), ConnArg::record() | db_conn:conn_args()) -> ok | no_return().
+%%-spec add_pool(PoolId::atom(), ConnArg::record() | db_conn:conn_args()) -> ok | no_return().
 add_pool(PoolId, ConnArgList) when is_list(ConnArgList) ->
     add_pool(PoolId, {init_conn_arg_record(ConnArgList), proplists:get_value(error_handler, ConnArgList)});
 add_pool(PoolId, {ConnArg, ErrorHandler}) when is_record(ConnArg, conn_args) ->
@@ -116,7 +116,7 @@ add_pool(PoolId, ConnArg) when is_record(ConnArg, conn_args) ->
 %% @doc The connection parameters conversion, converted into a record db_conn:conn_args().
 %% @end
 %%------------------------------------------------------------------------------
--spec init_conn_arg_record(ConnArgList::db_conn:conn_args()) -> record().
+%%-spec init_conn_arg_record(ConnArgList::db_conn:conn_args()) -> record().
 init_conn_arg_record(ConnArgList) when is_list(ConnArgList)  ->
     #conn_args{
         driver = proplists:get_value(driver, ConnArgList, ?DEFAULT_DRIVER),
