@@ -59,7 +59,7 @@
 %%------------------------------------------------------------------------------
 -spec load(DrvPath::string(), Parent::pid()) -> none().
 load(DrvPath, Parent) ->
-    Start = now(),
+    Start = erlang:timestamp(),
     case erl_ddll:load_driver(DrvPath, ?DATABASE_LIB) of
         {error, Reason} when Reason /= already_loaded ->
             error_logger:format("failed reason to load database driver: ~p~n",
@@ -67,7 +67,7 @@ load(DrvPath, Parent) ->
             Parent ! failed;
         _ ->
             error_logger:format("Loading time of thread pool : ~10.2f ms~n",
-                [timer:now_diff(now(), Start) / 1000]),
+                [timer:now_diff(erlang:timestamp(), Start) / 1000]),
             Port = open_port({spawn, ?DATABASE_LIB}, [binary]),
             Parent ! done,
             loop(Port)
