@@ -132,7 +132,7 @@ connect(ConnArgs) ->
 
 %% @doc Stops a connection and, if successful, remove it from the
 %%   connection pool in the driver.
--spec disconnect(Connection::record() | record()) -> result().
+%%-spec disconnect(Connection::record() | record()) -> result().
 disconnect(Connection) ->
     Conn = get_conn(Connection),
     db_util:command(?DRV_DISCONNECT_DB, Conn).
@@ -149,7 +149,7 @@ init(ThreadLen) ->
 %% @doc Send a query to the driver and wait for the result.
 %% @end
 %%------------------------------------------------------------------------------
--spec execute_sql(Connection::record(), Sql::string()) -> result().
+%%-spec execute_sql(Connection::record(), Sql::string()) -> result().
 execute_sql(Connection, Sql) when is_list(Sql) ->
     Conn = get_conn(Connection),
     db_util:command(?DRV_EXECUTE_DB, {Conn, Sql}).
@@ -158,8 +158,8 @@ execute_sql(Connection, Sql) when is_list(Sql) ->
 %% @doc Send a query with parameters to the driver and wait for the result.
 %% @end
 %%------------------------------------------------------------------------------
--spec execute_param(Connection::record(), Statement::string(), ParamList::param_list()) ->
-    result().
+%%-spec execute_param(Connection::record(), Statement::string(), ParamList::param_list()) ->
+%%    result().
 execute_param(Connection, Statement, []) ->
     execute_sql(Connection, Statement);
 execute_param(Connection, Statement, ParamList) ->
@@ -173,8 +173,8 @@ execute_param(Connection, Statement, ParamList) ->
 %% @doc Insert a record into database.
 %% @end
 %%------------------------------------------------------------------------------
--spec insert(Connection::record(), TableName::atom(), ParamList::param_list()) ->
-     result().
+%%-spec insert(Connection::record(), TableName::atom(), ParamList::param_list()) ->
+%%     result().
 insert(Connection, TableName, ParamList) ->
     Conn = get_conn(Connection),
     db_util:command(?DRV_INSERT_DB, {Conn, {TableName, db_util:make_pararmlist(ParamList)}}).
@@ -184,8 +184,8 @@ insert(Connection, TableName, ParamList) ->
 %% and return the number of rows updated.
 %% @end
 %%------------------------------------------------------------------------------
--spec update(Connection::record(), TableName::atom(), ParamList::param_list(),
-     Where::where_expr()) -> result().
+%%-spec update(Connection::record(), TableName::atom(), ParamList::param_list(),
+%%     Where::where_expr()) -> result().
 update(Connection, TableName, ParamList, Where) ->
     Conn = get_conn(Connection),
     db_util:command(?DRV_UPDATE_DB, {Conn, {TableName, db_util:make_pararmlist(ParamList),
@@ -196,8 +196,8 @@ update(Connection, TableName, ParamList, Where) ->
 %% and return the number of rows deleted.
 %% @end
 %%------------------------------------------------------------------------------
--spec delete(Connection::record(), TableName::atom(), Where::where_expr()) ->
-     result().
+%%-spec delete(Connection::record(), TableName::atom(), Where::where_expr()) ->
+%%     result().
 delete(Connection, TableName, Where) ->
     Conn = get_conn(Connection),
     db_util:command(?DRV_DELETE_DB, {Conn, {TableName, db_util:make_expr(Where)}}).
@@ -208,8 +208,8 @@ delete(Connection, TableName, Where) ->
 %% If no records match the conditions, the function returns {ok, []}.
 %% @end
 %%------------------------------------------------------------------------------
--spec select(Connection::record(), TableList::tables(), Where::where_expr(),
-     Opts::options()) -> result().
+%%-spec select(Connection::record(), TableList::tables(), Where::where_expr(),
+%%     Opts::options()) -> result().
 select(Connection, TableList, Where, Opts) when is_list(Opts) ->
     Conn = get_conn(Connection),
     FieldList = proplists:get_value(fields, Opts),
@@ -274,7 +274,7 @@ trans_rollback(Conn, Err) ->
 
 %% @doc Register a prepared statement.
 %% @end
--spec prepare(Connection::record(), Statement::string()) -> result().
+%-spec prepare(Connection::record(), Statement::string()) -> result().
 prepare(Connection, Statement) ->
     Conn = get_conn(Connection),
     db_util:command(?DRV_PREPARE_DB, {Conn, Statement}).
@@ -283,8 +283,8 @@ prepare(Connection, Statement) ->
 %% @doc Execute a prepared statement it has prepared.
 %% @end
 %%------------------------------------------------------------------------------
--spec prepare_execute(Connection::record(), StmtName::string(), Args::list()) ->
-    result().
+%%-spec prepare_execute(Connection::record(), StmtName::string(), Args::list()) ->
+%%    result().
 prepare_execute(Connection, StmtName, Args) when is_atom(StmtName), is_list(Args) ->
     Conn = get_conn(Connection),
     StmtData = prepare_statement(Connection, StmtName),
@@ -306,7 +306,7 @@ unprepare(Connection) when is_record(Connection, db_connection) ->
 %% it is translated into a blocking gen-server call.
 %% @end
 %%------------------------------------------------------------------------------
--spec add_pool(PoolId::atom(), ConnArg::record()) -> ok | no_return().
+%-spec add_pool(PoolId::atom(), ConnArg::record()) -> ok | no_return().
 add_pool(PoolId, {ConnArgs, ErrorHandler}) when is_record(ConnArgs, conn_args) ->
     Pool = #pool{
         id = PoolId,
@@ -443,8 +443,8 @@ open_connection(#pool{id = PoolId, conn_args = ConnArgs}) ->
 %% run dry, even though it can freeze.
 %% @end
 %%------------------------------------------------------------------------------
--spec reset_connection(Conn::record(), StayLocked::pass | keep) ->
-    record() | {error, Error::term()}.
+%%-spec reset_connection(Conn::record(), StayLocked::pass | keep) ->
+%%    record() | {error, Error::term()}.
 reset_connection(Conn, StayLocked) ->
     spawn(fun() -> close_connection(Conn) end),
     Pool = db_conn_server:get_pool(Conn#db_connection.pool_id),
