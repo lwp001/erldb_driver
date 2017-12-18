@@ -30,6 +30,9 @@ instantclient-basic-linux.x64-12.2.0.1.0 解压文件夹命名oracle/lib/
 instantclient-sdk-linux.x64-12.2.0.1.0  解压 将文件夹include 拷贝到 oracle/下
 cp oracle /usr/lib/oracle
 last path /usr/lib/oracle/lib&include
+cd /usr/lib/oracle/lib
+ln -s libclntsh.so.12.1 libclntsh.so
+ln -s libocci.so.12.1 libocci.so
 环境变量设置
 export ORACLE_HOME=/usr/lib/oracle
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME/lib
