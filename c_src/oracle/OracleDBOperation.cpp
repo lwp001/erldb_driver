@@ -914,7 +914,7 @@ int OracleDBOperation::get_data_type(int* p_index) {
             //         type = BFILEE;
             //     }
             // }
-            // break;
+             break;
         case ERL_SMALL_INTEGER_EXT:
         case ERL_INTEGER_EXT:
         case ERL_SMALL_BIG_EXT:
