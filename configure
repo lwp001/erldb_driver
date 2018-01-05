@@ -3423,6 +3423,7 @@ if test "$with_oracle" != 'no' ; then
 $as_echo_n "checking ORACLE headers... " >&6; }
 ORACLE_INCL=""
 for d in \
+   ${ORACLE_HOME}  \
   /usr/include/oracle/ \
   /usr/local/include/oracle \
   /usr/local/oracle/include \
